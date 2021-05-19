@@ -26,7 +26,6 @@ root_path.mkdir(parents=True, exist_ok=True)
 ctx = bpy.context
 camera = ctx.scene.camera
 
-cafe_poses = np.load("cafe.npy")
 def pose2mat(pose):
     mat = np.eye(4)
     mat[:3, :] = pose[:15].reshape(3, 5)[:, :4]
