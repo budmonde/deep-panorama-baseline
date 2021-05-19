@@ -35,14 +35,15 @@ all_payloads = []
 for idx in range(opt.nframes):
     # Set rotation matrix
     angle = np.pi * 2 * idx / opt.nframes
+    # angle=0
     rotation_matrix = mathutils.Matrix.Rotation(angle, 4, "Y")
-    translation = mathutils.Vector((-0.15 * np.sin(angle), 0.0, -0.15 * np.cos(angle)))
+    translation = mathutils.Vector((0.15 * np.sin(-angle), 0.0, 0.15 * np.cos(-angle)))
     translation_matrix = mathutils.Matrix.Translation(translation)
     matrix = translation_matrix @ rotation_matrix
 
     # Change the configurations
-    ctx.scene.render.resolution_y = 640
-    ctx.scene.render.resolution_x = 640
+    ctx.scene.render.resolution_y = 200
+    ctx.scene.render.resolution_x = 200
     camera.data.sensor_height = 1
     camera.data.sensor_width = 1
     camera.data.clip_start = 0.1
@@ -52,6 +53,7 @@ for idx in range(opt.nframes):
     # Store payload
     to_emit_mat = np.linalg.inv(np.array(matrix))
 
+    payload = np.linalg.inv(np.array(matrix))[:3, :]
     payload = np.concatenate([
         payload,
         np.array([
