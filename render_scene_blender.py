@@ -35,9 +35,8 @@ all_payloads = []
 for idx in range(opt.nframes):
     # Set rotation matrix
     angle = np.pi * 2 * idx / opt.nframes
-    # angle=0
     rotation_matrix = mathutils.Matrix.Rotation(angle, 4, "Y")
-    translation = mathutils.Vector((0.15 * np.sin(-angle), 0.0, 0.15 * np.cos(-angle)))
+    translation = mathutils.Vector((0.15 * np.sin(angle + np.pi), 0.0, 0.15 * np.cos(angle + np.pi)))
     translation_matrix = mathutils.Matrix.Translation(translation)
     matrix = translation_matrix @ rotation_matrix
 
